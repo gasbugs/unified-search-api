@@ -3,15 +3,30 @@
 이 스크립트는 FastAPI를 사용하여 통합 검색 API를 제공합니다.
 - /search 엔드포인트를 통해 검색 기능을 웹 서비스로 노출합니다.
 - main.py의 SearchService 클래스를 사용하여 실제 검색 로직을 수행합니다.
+- 모든 엔드포인트는 헤더의 API 키를 통해 보호됩니다.
 """
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, Header, HTTPException
 from fastapi.responses import JSONResponse
 from main import SearchService
 import json
 
+# --- API 키 검증 의존성 ---
+# 고정된 API 키와 헤더 이름을 상수로 정의합니다.
+API_KEY = "abcdefg12345"
+API_KEY_NAME = "key"
+
+async def verify_api_key(key: str = Header(..., description="API Key")):
+    """
+    API 키를 검증하는 의존성 함수.
+    요청 헤더에 있는 'key' 값을 확인하여 유효하지 않으면 403 Forbidden 에러를 발생시킵니다.
+    """
+    if key != API_KEY:
+        raise HTTPException(status_code=403, detail="Invalid API Key")
+
 # FastAPI 애플리케이션 인스턴스 생성
-app = FastAPI()
+# dependencies=[Depends(verify_api_key)]를 추가하여 모든 엔드포인트에 API 키 검증을 전역으로 적용합니다.
+app = FastAPI(dependencies=[Depends(verify_api_key)])
 
 # SearchService 인스턴스 생성
 # 애플리케이션 시작 시 한 번만 생성하여 재사용합니다.

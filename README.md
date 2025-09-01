@@ -65,25 +65,28 @@ uvicorn app:app --reload
 서버가 실행되면 `http://127.0.0.1:8000` 주소로 접속할 수 있습니다.
 
 -   **API 문서 (Swagger UI):** `http://127.0.0.1:8000/docs`
+    -   **참고:** API 테스트 전, 우측 상단의 'Authorize' 버튼을 클릭하고 `abcdefg12345`를 입력하여 인증해야 합니다.
 -   **API 문서 (ReDoc):** `http://127.0.0.1:8000/redoc`
 
 ## API 엔드포인트
 
 ### `GET /search`
 
-통합 검색을 수행합니다.
+통합 검색을 수행합니다. **(API 키 인증 필요)**
 
 -   **URL:** `/search`
 -   **Method:** `GET`
+-   **Headers:**
+    -   `key` (str, **필수**): `abcdefg12345`
 -   **쿼리 파라미터:**
     -   `query` (str, **필수**): 검색할 키워드.
     -   `use_naver_blog` (bool, 선택, 기본값: `True`): 네이버 블로그 검색 사용 여부.
     -   `use_naver_news` (bool, 선택, 기본값: `True`): 네이버 뉴스 검색 사용 여부.
     -   `use_google_search` (bool, 선택, 기본값: `True`): 구글 검색 사용 여부.
 
--   **요청 예시:**
-    ```
-    http://127.0.0.1:8000/search?query=인공지능&use_google_search=false
+-   **요청 예시 (`curl`):**
+    ```bash
+    curl -X GET "http://127.0.0.1:8000/search?query=인공지능&use_google_search=false" -H "key: abcdefg12345"
     ```
 
 -   **성공 응답 (200 OK):**
