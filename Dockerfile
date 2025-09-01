@@ -1,7 +1,7 @@
 # 1. Base Image
-# Python 3.10 버전의 공식 이미지를 기반으로 합니다.
-# slim-buster는 경량화된 데비안 기반 이미지로, 최종 이미지 크기를 줄여줍니다.
-FROM python:3.10-slim-buster
+# Python 3.12 버전의 공식 이미지를 기반으로 합니다.
+# alpine 기반의 경량화된 이미지로, 보안과 크기 면에서 이점이 있습니다.
+FROM python:3.12-alpine
 
 # 2. Working Directory
 # 컨테이너 내에서 작업할 디렉토리를 설정합니다.
