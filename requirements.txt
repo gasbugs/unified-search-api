@@ -1,0 +1,14 @@
+# Framework
+fastapi
+
+# ASGI Server
+uvicorn[standard]
+
+# HTTP Requests
+requests
+
+# Google API Client
+google-api-python-client
+
+# Environment Variables
+python-dotenv
