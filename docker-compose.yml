@@ -39,6 +39,6 @@ services:
     env_file:
       - .env
     
-    # 이 서비스를 self-hosted-ai-starter-kit_demo 네트워크에 연결합니다.
+    # 이 서비스를 default 네트워크(self-hosted-ai-starter-kit_demo)에 연결합니다.
     networks:
-      - self-hosted-ai-starter-kit_demo
+      - default
